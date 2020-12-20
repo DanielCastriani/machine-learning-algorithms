@@ -2,6 +2,7 @@ import os
 import re
 import math
 import numpy as np
+import pandas as pd
 
 from time import time
 from typing import Union
@@ -56,21 +57,28 @@ def load_csv(path: str, sep: str = ',', skip_header: bool = True, parse_np: bool
     return data
 
 
-def shuffle(dataset: np.array):
+def shuffle(dataset: Union[pd.DataFrame, np.array]):
+    if type(dataset) == pd.DataFrame:
+        return dataset.sample(frac=1)
+
     index = np.arange(len(dataset))
     np.random.shuffle(index)
 
     return dataset[index]
 
 
-def train_test_split(dataset: np.array, train_size: float = 0.7, shuffle_dataset: bool = True) -> tuple:
+def train_test_split(dataset: Union[pd.DataFrame, np.array], train_size: float = 0.7, shuffle_dataset: bool = True) -> tuple:
     if shuffle_dataset:
         dataset = shuffle(dataset)
 
     train_size = train_size if train_size <= 1 else train_size / 100
 
     pivot = round(len(dataset) * train_size)
-    train, test = dataset[: pivot], dataset[pivot:]
+
+    if type(dataset) == pd.DataFrame:
+        train, test = dataset.iloc[: pivot], dataset.iloc[pivot:]
+    else:
+        train, test = dataset[: pivot], dataset[pivot:]
 
     return train, test
 
@@ -80,10 +88,18 @@ def split_k_folds(dataset: np.array, k: int = 5, shuffle_dataset: bool = True) -
 
     size = math.floor(len(dataset) / k)
 
-    for i in range(k):
-        if i == k - 1:
-            k_folds.append(dataset[size*i:])
-        else:
-            k_folds.append(dataset[size*i: size*(i+1)])
+    if type(dataset) == pd.DataFrame:
+        for i in range(k):
+            if i == k - 1:
+                k_folds.append(dataset.iloc[size*i:])
+            else:
+                k_folds.append(dataset.iloc[size*i: size*(i+1)])
+
+    else:
+        for i in range(k):
+            if i == k - 1:
+                k_folds.append(dataset[size*i:])
+            else:
+                k_folds.append(dataset[size*i: size*(i+1)])
 
     return k_folds
