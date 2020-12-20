@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"extensions": {
+		"recommendations": [
+			"ms-python.python",
+			"ms-python.vscode-pylance",
+			"ms-toolsai.jupyter",
+		]
+	},
+	"settings": {
+		"files.exclude": {
+			"**/__pycache__": true,
+			"venv": true
+		},
+		"jupyter.jupyterServerType": "local"
+	}
+}
