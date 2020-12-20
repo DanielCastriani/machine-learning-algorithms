@@ -2,8 +2,6 @@
 
  This repository contains machine learning algorithms. The purpose of this repository is to develop the algorithms used by the main machine learning frameworks and to understand the principles of each one in a didactic way.
 
-All the datasets used are sent referenced in this [link](./datasets/README.md)
-
 # Datasets References
 
 | File       | Link                                 |
