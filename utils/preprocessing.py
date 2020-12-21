@@ -2,6 +2,14 @@ import numpy as np
 import pandas as pd
 from typing import Union
 
+
+def label_encoder(y, labels=None):
+    if not labels:
+        labels = np.unique(y)
+        
+    return [np.where(item == labels)[0][0] for item in y], labels
+
+
 def min_max_normalize(dataset: Union[pd.DataFrame, np.array], minmax: dict = None):
     """Normalize the data using min max
 
