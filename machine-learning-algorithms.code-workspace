@@ -14,7 +14,8 @@
 	"settings": {
 		"files.exclude": {
 			"**/__pycache__": true,
-			"venv": true
+			"venv": true,
+			"LICENSE": true
 		},
 		"jupyter.jupyterServerType": "local"
 	}
