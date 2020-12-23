@@ -1,12 +1,28 @@
+from typing import Union
+
 import numpy as np
 import pandas as pd
-from typing import Union
+
+
+def to_ndarray(entries):
+    if type(entries) == list:
+        return np.array(entries)
+    elif type(entries) == pd.Series:
+        return np.array(entries.tolist())
+    elif type(entries) == pd.DataFrame:
+        return np.array(entries.values.tolist())
+    else:
+        return entries
+
+
+def parse_error_metrics_list(true, pred):
+    return to_ndarray(true), to_ndarray(pred)
 
 
 def label_encoder(y, labels=None):
     if not labels:
         labels = np.unique(y)
-        
+
     return [np.where(item == labels)[0][0] for item in y], labels
 
 

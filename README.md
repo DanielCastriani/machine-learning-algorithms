@@ -4,10 +4,11 @@
 
 # Datasets References
 
-| File       | Link                                 |
-|------------|--------------------------------------|
-| Iris.csv   | https://www.kaggle.com/uciml/iris    |
-| Salary.csv | https://www.kaggle.com/rsadiq/salary |
+| File             | Link                                          |
+|------------------|-----------------------------------------------|
+| Iris.csv         | https://www.kaggle.com/uciml/iris             |
+| Fish.csv         | https://www.kaggle.com/aungpyaeap/fish-market |
+| Salary.csv       | https://www.kaggle.com/rsadiq/salary          |
 
 # Preparing the environment
 
