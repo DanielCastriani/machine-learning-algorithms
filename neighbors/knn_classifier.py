@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from utils.math_functions import euclidian_distance
 from typing import Union
 
 
@@ -41,15 +42,9 @@ class KNNClassifier:
 
         return labels_dict
 
-    def euclidian_distance(self, sample):
-        diff = sample - self.x
-        elms_pow = diff ** 2
-        elms_sum = np.sum(elms_pow, axis=1)
-        return np.sqrt(elms_sum)
-
     def predict_one(self, sample:  np.array):
-        distances = self.euclidian_distance(sample)
-        index = distances = np.argsort(distances)
+        distances = euclidian_distance(sample, self.x)
+        index = np.argsort(distances)
         k_best_index = index[:self.k]
         k_best = self.y[k_best_index]
 
