@@ -25,6 +25,19 @@ def label_encoder(y, labels=None):
 
     return [np.where(item == labels)[0][0] for item in y], labels
 
+def one_hot_encoder(data):
+    data = to_ndarray(data)
+
+    # Convert categorical values to int: ['A', 'B', 'B', 'C'] -> [0, 1, 1, 2]
+    label_encoded, labels = label_encoder(data)
+        
+    # create a 0 matrix of size n_data x n_categories
+    one_hot = np.zeros((len(data), len(labels))) 
+
+    # Encode the values to one hot encode
+    # The fist index, access the row, and the second index(label_encoded) access the position corresponding the label(int)
+    one_hot[np.arange(len(label_encoded)), label_encoded] = 1
+    return one_hot
 
 def min_max_normalize(dataset: Union[pd.DataFrame, np.ndarray], minmax: dict = None):
     """Normalize the data using min max
