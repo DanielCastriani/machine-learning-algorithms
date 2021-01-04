@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 
-def to_ndarray(entries):
+def to_ndarray(entries) -> np.ndarray:
     if type(entries) == list:
         return np.array(entries)
     elif type(entries) == pd.Series:
@@ -26,7 +26,7 @@ def label_encoder(y, labels=None):
     return [np.where(item == labels)[0][0] for item in y], labels
 
 
-def min_max_normalize(dataset: Union[pd.DataFrame, np.array], minmax: dict = None):
+def min_max_normalize(dataset: Union[pd.DataFrame, np.ndarray], minmax: dict = None):
     """Normalize the data using min max
 
     Args:

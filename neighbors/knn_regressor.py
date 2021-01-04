@@ -16,15 +16,15 @@ class KNNRegressor:
     """
     k: int
     mode: str
-    x: np.array
-    y: np.array
-    labels: np.array
+    x: np.ndarray
+    y: np.ndarray
+    labels: np.ndarray
 
     def __init__(self, k: int = 3, mode: str = 'weight'):
         self.k = k
         self.mode = mode
 
-    def fit(self, x: Union[pd.DataFrame, np.array], y: Union[pd.DataFrame, np.array]):
+    def fit(self, x: Union[pd.DataFrame, np.ndarray], y: Union[pd.DataFrame, np.ndarray]):
         x = to_ndarray(x)
         y = to_ndarray(y)
 
@@ -39,7 +39,7 @@ class KNNRegressor:
         w = w / np.sum(w)
         return np.sum(values * w)
 
-    def predict_one(self, sample:  np.array):
+    def predict_one(self, sample:  np.ndarray):
         distances = euclidian_distance(sample, self.x)
         index = np.argsort(distances)
         k_best_index = index[:self.k]
@@ -52,7 +52,7 @@ class KNNRegressor:
 
         return self.weighted_mean(k_best, k_best_distance)
 
-    def predict(self, values: Union[pd.DataFrame, np.array]):
+    def predict(self, values: Union[pd.DataFrame, np.ndarray]):
         values = to_ndarray(values)
 
         return np.array([self.predict_one(val) for val in values])

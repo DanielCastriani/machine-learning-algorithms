@@ -17,7 +17,9 @@
 			"venv": true,
 			"LICENSE": true
 		},
-		"jupyter.jupyterServerType": "local"
+		"python.languageServer": "Pylance",
+		"jupyter.jupyterServerType": "local",
+		"python.analysis.diagnosticMode": "workspace"
 	},
 	"launch": {
 		"version": "0.2.0",
