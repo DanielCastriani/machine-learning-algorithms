@@ -15,8 +15,13 @@
 		"files.exclude": {
 			"**/__pycache__": true,
 			"venv": true,
+			"doc_imgs": true,
+			"data": true,
 			"LICENSE": true
 		},
+		"python.formatting.autopep8Args": [
+			"--max-line-length=200"
+		],
 		"python.languageServer": "Pylance",
 		"jupyter.jupyterServerType": "local",
 		"python.analysis.diagnosticMode": "workspace"
@@ -29,6 +34,13 @@
 				"type": "python",
 				"request": "launch",
 				"program": "${file}",
+				"console": "integratedTerminal"
+			},
+			{
+				"name": "3_kmeans.py",
+				"type": "python",
+				"request": "launch",
+				"program": "3_kmeans.py",
 				"console": "integratedTerminal"
 			}
 		]
