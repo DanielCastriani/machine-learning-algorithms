@@ -15,5 +15,5 @@ x_test = test.drop('Species', axis=1)
 y_train = train['Species']
 y_test = test['Species']
 
-model = KMeans(k=3)
+model = KMeans(k=3, gen_mode='rnd_values')
 print(model.fit(x_train))
