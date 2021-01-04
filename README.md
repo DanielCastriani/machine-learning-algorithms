@@ -7,6 +7,7 @@
 | File             | Link                                          |
 |------------------|-----------------------------------------------|
 | Iris.csv         | https://www.kaggle.com/uciml/iris             |
+| auto-mpg.csv     | https://www.kaggle.com/uciml/autompg-dataset  |
 | Fish.csv         | https://www.kaggle.com/aungpyaeap/fish-market |
 | Salary.csv       | https://www.kaggle.com/rsadiq/salary          |
 
