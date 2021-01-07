@@ -77,7 +77,7 @@ class KMeans:
 
         return np.array(labels)
 
-    def _calculate_centroid(self):
+    def _calculate_centroids(self):
         centroids = []
 
         for index in range(self.k):
@@ -102,7 +102,7 @@ class KMeans:
                 break
             else:
                 self.labels = labels
-                self.centroids = self._calculate_centroid()
+                self.centroids = self._calculate_centroids()
 
     def predict(self, x):
         values = to_ndarray(x)
