@@ -1,11 +1,13 @@
 import numpy as np
 from utils import to_ndarray
+from utils.math_functions import euclidian_distance
 
 
 class KMeans:
 
     k: int
     x: np.ndarray
+    labels: np.ndarray
     gen_mode: str
     centroids: np.ndarray
 
@@ -20,6 +22,7 @@ class KMeans:
 
         self.k = k
         self.gen_mode = gen_mode
+        self.labels = np.array([])
         self._verify_params()
 
     def _verify_params(self):
@@ -65,11 +68,42 @@ class KMeans:
 
         raise Exception("incorrect centroid generation mode. available modes: 'rnd_sample', and 'rnd_values'")
 
-    def fit(self, x):
+    def _calculate_labels(self, samples):
+        labels = []
+
+        for sample in samples:
+            distances = euclidian_distance(sample, self.centroids)
+            labels.append(np.argmin(distances))
+
+        return np.array(labels)
+
+    def _calculate_centroid(self):
+        centroids = []
+
+        for index in range(self.k):
+            mask = self.labels == index
+            selected = self.x[mask]
+            mean = np.mean(selected, axis=0)
+            centroids.append(mean)
+
+        return np.array(centroids)
+
+    def fit(self, x, max_iter=1000):
         self._verify_params()
 
         self.x = to_ndarray(x)
         self.centroids = self._init_centroids()
 
-        # TODO rm line
-        return self.centroids
+        while max_iter > 0:
+            max_iter -= 1
+
+            labels = self._calculate_labels(self.x)
+            if np.array_equal(labels, self.labels):
+                break
+            else:
+                self.labels = labels
+                self.centroids = self._calculate_centroid()
+
+    def predict(self, x):
+        values = to_ndarray(x)
+        return self._calculate_labels(values)
