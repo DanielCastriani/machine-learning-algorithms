@@ -11,13 +11,13 @@ class KMeans:
     gen_mode: str
     centroids: np.ndarray
 
-    def __init__(self, k=3, gen_mode='rnd_sample'):
+    def __init__(self, k=3, gen_mode='rnd_element'):
         """
         Args:
             k (int, optional): number of centroids. Defaults to 3.
-            gen_mode (str, optional): centroid generation mode. Defaults to 'rnd_sample'.
-                * 'rnd_sample' will select k samples randomly.
-                * 'rnd_values' generate random values between min and max of samples for each centroid
+            gen_mode (str, optional): centroid generation mode. Defaults to 'rnd_element'.
+                * 'rnd_element' will select k elements randomly.
+                * 'rnd_values' generate random values between min and max of elements for each centroid
         """
 
         self.k = k
@@ -26,8 +26,8 @@ class KMeans:
         self._verify_params()
 
     def _verify_params(self):
-        if self.gen_mode not in ['rnd_sample', 'rnd_values']:
-            raise Exception("incorrect centroid generation mode. available modes: 'rnd_sample', and 'rnd_values'")
+        if self.gen_mode not in ['rnd_element', 'rnd_values']:
+            raise Exception("incorrect centroid generation mode. available modes: 'rnd_element', and 'rnd_values'")
 
     def _init_centroids_random(self):
         min_values = self.x.min(axis=0)
@@ -61,18 +61,18 @@ class KMeans:
         return centroids
 
     def _init_centroids(self):
-        if self.gen_mode == 'rnd_sample':
+        if self.gen_mode == 'rnd_element':
             return self._init_centroids_by_select()
         elif self.gen_mode == 'rnd_values':
             return self._init_centroids_random()
 
-        raise Exception("incorrect centroid generation mode. available modes: 'rnd_sample', and 'rnd_values'")
+        raise Exception("incorrect centroid generation mode. available modes: 'rnd_element', and 'rnd_values'")
 
-    def _calculate_labels(self, samples):
+    def _define_labels(self, elements):
         labels = []
 
-        for sample in samples:
-            distances = euclidian_distance(sample, self.centroids)
+        for element in elements:
+            distances = euclidian_distance(element, self.centroids)
             labels.append(np.argmin(distances))
 
         return np.array(labels)
@@ -97,7 +97,7 @@ class KMeans:
         while max_iter > 0:
             max_iter -= 1
 
-            labels = self._calculate_labels(self.x)
+            labels = self._define_labels(self.x)
             if np.array_equal(labels, self.labels):
                 break
             else:
@@ -106,4 +106,4 @@ class KMeans:
 
     def predict(self, x):
         values = to_ndarray(x)
-        return self._calculate_labels(values)
+        return self._define_labels(values)
